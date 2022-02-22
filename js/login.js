@@ -21,8 +21,10 @@ function loginSubmit(event) {
   event.preventDefault();
   const username = usernameInput.value;
   usernameInput.value = null;
-  showGreeting(username);
-  loginSave(username); //1. 로컬에 저장
+  if (username !== "") {
+    showGreeting(username);
+    loginSave(username); //1. 로컬에 저장
+  }
 }
 
 function loginDisplay() {

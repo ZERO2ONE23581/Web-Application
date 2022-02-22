@@ -22,7 +22,7 @@
       </div>
       <!-- login -->
       <form id="login-form">
-        <input type="text" placeholder="Type your username" />
+        <input type="text" placeholder="Type your username" maxlength="15" />
         <input type="submit" value="Sign In" />
       </form>
       <div id="greeting"></div>
@@ -32,10 +32,12 @@
         <p></p>
       </div>
       <!-- todo -->
-      <form id="todoForm">
-        <input type="text" placeholder="Type your todo and press Enter" />
-      </form>
-      <ul id="todo-list"></ul>
+      <div class="todo-wrap">
+        <form id="todoForm">
+          <input type="text" placeholder="Type your todo and press Enter" />
+        </form>
+        <ul id="todo-list"></ul>
+      </div>
     </div>
     <!-- javascript -->
     <script src="./js/login.js"></script>
@@ -43,6 +45,6 @@
     <script src="./js/quote.js"></script>
     <script src="./js/bg.js"></script>
     <script src="./js/todo.js"></script>
-    <!-- <script src="./js/weather.js"></script> -->
+    <script src="./js/weather.js"></script>
   </body>
 </html>

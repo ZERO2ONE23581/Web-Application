@@ -3,6 +3,7 @@
 1. todo list를 html상에 나오도록 만든다.
 2. data를 local에 저장한다
 3. 로그인 처럼 하나가 아닌 여러 데이터가 들어감으로 데이터베이스를 만들어준다.
+4. delete btn을 누르면 로컬데이터도 삭제되게 한다. (id는 date.now()를 이용할것) (filter메소드 이용)
 */
 
 //가상 database
@@ -16,19 +17,27 @@ todoForm.addEventListener("submit", todoSubmit);
 
 function todoSubmit(event) {
   event.preventDefault();
-  const todo = todoInput.value;
+  const todo = {
+    //todo를 object형식으로 만들어 id를 부과
+    name: todoInput.value,
+    id: Date.now(),
+  };
   todoInput.value = null;
-  showTodo(todo);
-  todoDb.push(todo); // db에 저장
+  if (todo.name !== "") {
+    //그냥 엔터눌렀을때 세이브방지
+    showTodo(todo);
+    todoDb.push(todo); // db에 저장
+  }
   saveTodo(); //함수에서 배열을 저장할것
 }
 
 function showTodo(event) {
   const li = document.createElement("li");
+  li.id = event.id; //li에 id 넣어줌
   todoList.appendChild(li);
   const span = document.createElement("span");
   li.appendChild(span);
-  span.innerText = event;
+  span.innerText = event.name; //text에는 name
   const btn = document.createElement("button");
   li.appendChild(btn);
   btn.innerText = "❌";
@@ -38,21 +47,23 @@ function showTodo(event) {
 function deleteTodo(event) {
   const li = event.target.parentElement;
   li.remove();
+  console.log(typeof li.id); //string이기에 filter할때 number로 바꿔줘야됨!
+  //로컬데이터 삭제
+  //배열안의 obejct중 id가 삭제하고자하는 li의 id와 일치하는 것을 거른다. (거르고 새 배열에 넣어주는 작업까지)
+  todoDb = todoDb.filter((object) => object.id !== parseInt(li.id)); // 필터링된 새배열 -> 기존배열
+  console.log(todoDb);
+  saveTodo();
 }
 
 //로컬에 데이터 보관 (locastorage!==database)
 function saveTodo() {
-  //localStorage에는 어떤데이터든 문자열로 인식함으로 "배열을 통째로 문자열로" 넣기위해 JSON.stringify를 활용
-  localStorage.setItem(TODO_KEY, JSON.stringify(todoDb));
+  localStorage.setItem(TODO_KEY, JSON.stringify(todoDb)); //string
 }
 //로컬에 보관된 데이터 소환
 const savedTodo = localStorage.getItem(TODO_KEY);
-console.log(savedTodo); //string
 
 if (savedTodo !== null) {
-  //로컬상 배열로 보이지만 사실 string -> 이걸 다시 array로 바꿔주기 위해 JSON.parse를 활용
-  const parsedTodo = JSON.parse(savedTodo);
-  console.log(parsedTodo); //array
-  todoDb = parsedTodo; //parseTodo -> 기존 array에 업데이트 (할당)
-  todoDb.forEach(showTodo); // 업데이트된 array의 element를 각 인수로하여 showTodo 함수실행!
+  const parsedTodo = JSON.parse(savedTodo); //array
+  todoDb = parsedTodo;
+  todoDb.forEach(showTodo);
 }
