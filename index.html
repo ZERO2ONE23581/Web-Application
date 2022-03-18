@@ -15,29 +15,33 @@
         <p></p>
         <p></p>
       </div>
-      <!-- clock -->
-      <div class="clock">
-        <div id="date"></div>
-        <div id="time">00:00:00</div>
-      </div>
-      <!-- login -->
-      <form id="login-form">
-        <input type="text" placeholder="Type your username" maxlength="15" />
-        <input type="submit" value="Sign In" />
-      </form>
-      <div id="greeting"></div>
-      <!-- quote -->
-      <div id="quote">
-        <p></p>
-        <p></p>
-      </div>
-      <!-- todo -->
-      <div class="todo-wrap">
-        <form id="todoForm">
-          <input type="text" placeholder="Type your todo and press Enter" />
-        </form>
-        <ul id="todo-list"></ul>
-      </div>
+      <section>
+        <!-- clock -->
+        <article class="clock">
+          <div id="date"></div>
+          <div id="time">00:00:00</div>
+        </article>
+        <!-- login -->
+        <article>
+          <form id="login-form">
+            <input type="text" placeholder="Type your username" maxlength="15" />
+            <input type="submit" value="Sign In" />
+          </form>
+          <div id="greeting"></div>
+        </article>
+        <!-- quote -->
+        <article id="quote">
+          <p></p>
+          <p></p>
+        </article>
+        <!-- todo -->
+        <article class="todo-wrap">
+          <form id="todoForm">
+            <input type="text" placeholder="Type your todo and press Enter" />
+          </form>
+          <ul id="todo-list"></ul>
+        </article>
+      </section>
     </div>
     <!-- javascript -->
     <script src="./js/login.js"></script>
